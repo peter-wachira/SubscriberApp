@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         val dao = SubscriberDatabase.getInstance(application).subscriberDAO
         val repository = SubscriberRepository(dao)
         val factory = SubscriberViewModelFactory(repository)
-        subscriberViewModel = ViewModelProvider(this,factory).get(SubscriberViewModel::class.java)
+        subscriberViewModel = ViewModelProvider(this, factory).get(SubscriberViewModel::class.java)
         binding.myViewModel = subscriberViewModel
         binding.lifecycleOwner = this
         initRecyclerView()
@@ -32,15 +32,16 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun initRecyclerView(){
+
+    private fun initRecyclerView() {
         binding.subscriberRecyclerView.layoutManager = LinearLayoutManager(this)
         displaySubscribersList()
 
     }
 
-    private fun displaySubscribersList(){
+    private fun displaySubscribersList() {
         subscriberViewModel.subscribers.observe(this, Observer {
-            Log.i("MYTAG",it.toString())
+            Log.i("MYTAG", it.toString())
 
             binding.subscriberRecyclerView.adapter = MyRecyclerViewAdapter (it) { selectedItem: Subscriber ->
                 listItemClicked(

@@ -35,8 +35,8 @@ This app takes use of the following libraries:
 
 - [Jetpack](https://developer.android.com/jetpack)🚀
   - [Viewmodel](https://developer.android.com/topic/libraries/architecture/viewmodel) - Manage UI data to survive configuration changes and is lifecycle-aware
-  - [Navigation](https://developer.android.com/guide/navigation/) - Handle everything needed for in-app navigation
   - [LiveData](https://developer.android.com/topic/libraries/architecture/livedata) - Notify views when underlying database changes
+  - [DataBinding](https://developer.android.com/topic/libraries/data-binding) - The Data Binding Library is a support library that allows you to bind UI components in your layouts to data sources in your app using a declarative format rather than programmatically.
 
 - [kotlinx.coroutines](https://github.com/Kotlin/kotlinx.coroutines) - Library Support for coroutines
 
