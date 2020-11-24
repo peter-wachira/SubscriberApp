@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+
     private fun initRecyclerView() {
         binding.subscriberRecyclerView.layoutManager = LinearLayoutManager(this)
         displaySubscribersList()
