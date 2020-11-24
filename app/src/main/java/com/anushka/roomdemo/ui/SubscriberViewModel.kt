@@ -10,16 +10,19 @@ import com.anushka.roomdemo.db.SubscriberRepository
 import kotlinx.coroutines.launch
 
 
-class SubscriberViewModel(private val repository: SubscriberRepository) : ViewModel(),Observable {
+class SubscriberViewModel(private val repository: SubscriberRepository) : ViewModel(), Observable {
 
     val subscribers = repository.subscribers
 
     @Bindable
     val inputName = MutableLiveData<String>()
+
     @Bindable
     val inputEmail = MutableLiveData<String>()
+
     @Bindable
     val saveOrUpdateButtonText = MutableLiveData<String>()
+
     @Bindable
     val clearAllOrDeleteButtonText = MutableLiveData<String>()
 
@@ -28,21 +31,21 @@ class SubscriberViewModel(private val repository: SubscriberRepository) : ViewMo
         clearAllOrDeleteButtonText.value = "Clear All"
     }
 
-    fun saveOrUpdate(){
+    fun saveOrUpdate() {
         val name = inputName.value!!
         val email = inputEmail.value!!
-        insert(Subscriber(0,name,email))
+        insert(Subscriber(0, name, email))
         inputName.value = null
         inputEmail.value = null
     }
 
-    fun clearAllOrDelete(){
-      clearAll()
+    fun clearAllOrDelete() {
+        clearAll()
     }
 
-    fun insert(subscriber: Subscriber)= viewModelScope.launch {
-            repository.insert(subscriber)
-        }
+    fun insert(subscriber: Subscriber) = viewModelScope.launch {
+        repository.insert(subscriber)
+    }
 
     fun update(subscriber: Subscriber) = viewModelScope.launch {
         repository.update(subscriber)
@@ -52,7 +55,7 @@ class SubscriberViewModel(private val repository: SubscriberRepository) : ViewMo
         repository.delete(subscriber)
     }
 
-    fun clearAll()=viewModelScope.launch {
+    fun clearAll() = viewModelScope.launch {
         repository.deleteAll()
     }
 
