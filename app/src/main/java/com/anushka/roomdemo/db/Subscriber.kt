@@ -9,12 +9,12 @@ data class Subscriber(
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "subscriber_name")
-    val id: Int,
+    var id: Int,
 
     @ColumnInfo(name = "subscriber_id")
-    val name: String,
+    var name: String,
 
     @ColumnInfo(name = "subscriber_email")
-    val email: String
+    var email: String
 
 )
