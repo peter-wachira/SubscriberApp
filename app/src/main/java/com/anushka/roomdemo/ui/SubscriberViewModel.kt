@@ -1,4 +1,4 @@
-package com.anushka.roomdemo
+package com.anushka.roomdemo.ui
 
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
