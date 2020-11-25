@@ -9,16 +9,22 @@ import com.anushka.roomdemo.R
 import com.anushka.roomdemo.databinding.ListItemBinding
 import com.droid.roomdemo.db.Subscriber
 
-class MyRecyclerViewAdapter(private val subscribersList: List<Subscriber>
-                            , private val clickListener:(Subscriber)->Unit)
+class MyRecyclerViewAdapter(private val clickListener:(Subscriber)->Unit)
     : RecyclerView.Adapter<MyViewHolder>()
 {
+    private val subscribersList = ArrayList<Subscriber>()
+
+    fun setList(subscribers: List<Subscriber>){
+        subscribersList.clear()
+        subscribersList.addAll(subscribers)
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
       val layoutInflater = LayoutInflater.from(parent.context)
       val binding : ListItemBinding =
           DataBindingUtil.inflate(layoutInflater, R.layout.list_item,parent,false)
       return MyViewHolder(binding)
     }
+
 
     override fun getItemCount(): Int {
        return subscribersList.size
