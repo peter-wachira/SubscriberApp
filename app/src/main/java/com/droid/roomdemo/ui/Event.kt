@@ -1,4 +1,4 @@
-package com.anushka.roomdemo.ui
+package com.droid.roomdemo.ui
 
 open class Event<out T>(private val content: T) {
 

@@ -1,4 +1,4 @@
-package com.anushka.roomdemo.ui
+package com.droid.roomdemo.ui
 
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
@@ -6,8 +6,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.anushka.roomdemo.db.Subscriber
-import com.anushka.roomdemo.db.SubscriberRepository
+import com.droid.roomdemo.db.Subscriber
+import com.droid.roomdemo.db.SubscriberRepository
 import kotlinx.coroutines.launch
 
 

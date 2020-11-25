@@ -1,4 +1,4 @@
-package com.anushka.roomdemo.ui
+package com.droid.roomdemo.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,9 +10,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.anushka.roomdemo.R
 import com.anushka.roomdemo.databinding.ActivityMainBinding
-import com.anushka.roomdemo.db.Subscriber
-import com.anushka.roomdemo.db.SubscriberDatabase
-import com.anushka.roomdemo.db.SubscriberRepository
+import com.droid.roomdemo.db.Subscriber
+import com.droid.roomdemo.db.SubscriberDatabase
+import com.droid.roomdemo.db.SubscriberRepository
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding

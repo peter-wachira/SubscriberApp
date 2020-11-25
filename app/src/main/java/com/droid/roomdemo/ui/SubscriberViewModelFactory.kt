@@ -1,8 +1,8 @@
-package com.anushka.roomdemo.ui
+package com.droid.roomdemo.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.anushka.roomdemo.db.SubscriberRepository
+import com.droid.roomdemo.db.SubscriberRepository
 import java.lang.IllegalArgumentException
 
 class SubscriberViewModelFactory(private val repository: SubscriberRepository):ViewModelProvider.Factory {

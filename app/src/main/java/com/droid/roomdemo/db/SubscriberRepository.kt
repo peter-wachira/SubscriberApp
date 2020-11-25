@@ -1,4 +1,4 @@
-package com.anushka.roomdemo.db
+package com.droid.roomdemo.db
 
 class SubscriberRepository(private val dao : SubscriberDAO) {
 
