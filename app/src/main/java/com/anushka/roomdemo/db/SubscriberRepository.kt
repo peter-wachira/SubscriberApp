@@ -1,22 +1,22 @@
 package com.anushka.roomdemo.db
 
-class SubscriberRepository(private val dao: SubscriberDAO) {
+class SubscriberRepository(private val dao : SubscriberDAO) {
 
     val subscribers = dao.getAllSubscribers()
 
-    suspend fun insert(subscriber: Subscriber) {
+    suspend fun insert(subscriber: Subscriber){
         dao.insertSubscriber(subscriber)
     }
 
-    suspend fun update(subscriber: Subscriber) {
+    suspend fun update(subscriber: Subscriber){
         dao.updateSubscriber(subscriber)
     }
 
-    suspend fun delete(subscriber: Subscriber) {
+    suspend fun delete(subscriber: Subscriber){
         dao.deleteSubscriber(subscriber)
     }
 
-    suspend fun deleteAll() {
+    suspend fun deleteAll(){
         dao.deleteAll()
     }
 }
