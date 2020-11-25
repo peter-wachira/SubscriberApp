@@ -1,10 +1,13 @@
 package com.anushka.roomdemo.ui
 
+import android.util.EventLog
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.anushka.roomdemo.Event
 import com.anushka.roomdemo.db.Subscriber
 import com.anushka.roomdemo.db.SubscriberRepository
 import kotlinx.coroutines.launch
@@ -13,6 +16,10 @@ import kotlinx.coroutines.launch
 class SubscriberViewModel(private val repository: SubscriberRepository) : ViewModel(), Observable {
 
     val subscribers = repository.subscribers
+    private val statusMessage = MutableLiveData<Event<String>>()
+
+    val message : LiveData<Event<String>>
+    get() = statusMessage
 
     @Bindable
     val inputName = MutableLiveData<String>()
@@ -45,18 +52,26 @@ class SubscriberViewModel(private val repository: SubscriberRepository) : ViewMo
 
     fun insert(subscriber: Subscriber) = viewModelScope.launch {
         repository.insert(subscriber)
+        statusMessage.value = Event("Subscriber inserted successfully")
     }
 
     fun update(subscriber: Subscriber) = viewModelScope.launch {
         repository.update(subscriber)
+        statusMessage.value = Event("Subscriber updated successfully")
+
     }
 
     fun delete(subscriber: Subscriber) = viewModelScope.launch {
         repository.delete(subscriber)
+        statusMessage.value = Event("Subscriber deleted successfully")
+
     }
+
 
     fun clearAll() = viewModelScope.launch {
         repository.deleteAll()
+        statusMessage.value = Event("All subscribers deleted successfully")
+
     }
 
     override fun removeOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {

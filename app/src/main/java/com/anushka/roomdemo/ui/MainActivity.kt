@@ -2,6 +2,7 @@ package com.anushka.roomdemo.ui
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -27,6 +28,11 @@ class MainActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         initRecyclerView()
 
+        subscriberViewModel.message.observe(this, Observer {
+            it.getContentIfNotHandled()?.let {
+                Toast.makeText(this,it,Toast.LENGTH_LONG).show()
+            }
+        })
 
     }
 
