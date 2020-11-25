@@ -1,5 +1,6 @@
 package com.droid.roomdemo.ui
 
+import android.util.Patterns
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.lifecycle.LiveData
@@ -37,17 +38,25 @@ class SubscriberViewModel(private val repository: SubscriberRepository) : ViewMo
         clearAllOrDeleteButtonText.value = "Clear All"
     }
 
-    fun saveOrUpdate(){
-        if(isUpdateOrDelete){
-            subscriberToUpdateOrDelete.name = inputName.value!!
-            subscriberToUpdateOrDelete.email = inputEmail.value!!
-            update(subscriberToUpdateOrDelete)
-        }else {
-            val name = inputName.value!!
-            val email = inputEmail.value!!
-            insert(Subscriber(0, name, email))
-            inputName.value = null
-            inputEmail.value = null
+    fun saveOrUpdate() {
+        if (inputEmail.value == null) {
+            statusMessage.value = Event("Please enter subscriber's name")
+        } else if (inputEmail.value == null) {
+            statusMessage.value = Event("Please enter subscriber's email")
+        } else if (Patterns.EMAIL_ADDRESS.matcher(inputEmail.value!!).matches()) {
+            statusMessage.value = Event("Please enter correct email address")
+        } else {
+            if (isUpdateOrDelete) {
+                subscriberToUpdateOrDelete.name = inputName.value!!
+                subscriberToUpdateOrDelete.email = inputEmail.value!!
+                update(subscriberToUpdateOrDelete)
+            } else {
+                val name = inputName.value!!
+                val email = inputEmail.value!!
+                insert(Subscriber(0, name, email))
+                inputName.value = null
+                inputEmail.value = null
+            }
         }
     }
 
@@ -61,30 +70,39 @@ class SubscriberViewModel(private val repository: SubscriberRepository) : ViewMo
     }
 
     fun insert(subscriber: Subscriber)= viewModelScope.launch {
-            repository.insert(subscriber)
-            statusMessage.value = Event("Subscriber Inserted Successfully")
-        }
+        val newRowId: Long = repository.insert(subscriber)
+        if (newRowId > -1) {
+            statusMessage.value = Event("Subscriber Inserted Successfully $newRowId")
+        } else
+            statusMessage.value = Event("Error occured")
+    }
 
     fun update(subscriber: Subscriber) = viewModelScope.launch {
-        repository.update(subscriber)
-        inputName.value = null
-        inputEmail.value = null
-        isUpdateOrDelete = false
-        saveOrUpdateButtonText.value = "Save"
-        clearAllOrDeleteButtonText.value = "Clear All"
-        statusMessage.value = Event("Subscriber Updated Successfully")
+        val noOfRows = repository.update(subscriber)
+        if (noOfRows > 0) {
+            inputName.value = null
+            inputEmail.value = null
+            isUpdateOrDelete = false
+            saveOrUpdateButtonText.value = "Save"
+            clearAllOrDeleteButtonText.value = "Clear All"
+            statusMessage.value = Event(" $noOfRows Row Updated Successfully")
+        } else
+            statusMessage.value = Event("Error occurred")
 
     }
 
     fun delete(subscriber: Subscriber) = viewModelScope.launch {
-        repository.delete(subscriber)
-        inputName.value = null
-        inputEmail.value = null
-        isUpdateOrDelete = false
-        saveOrUpdateButtonText.value = "Save"
-        clearAllOrDeleteButtonText.value = "Clear All"
-        statusMessage.value = Event("Subscriber Deleted Successfully")
-
+        val noOfRows = repository.delete(subscriber)
+        if (noOfRows > 0) {
+            inputName.value = null
+            inputEmail.value = null
+            isUpdateOrDelete = false
+            saveOrUpdateButtonText.value = "Save"
+            clearAllOrDeleteButtonText.value = "Clear All"
+            statusMessage.value = Event(" $noOfRows Row Updated Successfully")
+        } else {
+            statusMessage.value = Event("Error Occurred")
+        }
     }
 
     fun clearAll()=viewModelScope.launch {
